@@ -7,7 +7,7 @@ const API_URL =
 export const loginUser =
   async (data) => {
 
-    return axios.post(
+    return await axios.post(
       `${API_URL}/api/auth/login`,
       data
     );
@@ -17,7 +17,7 @@ export const loginUser =
 export const registerUser =
   async (data) => {
 
-    return axios.post(
+    return await axios.post(
       `${API_URL}/api/auth/register`,
       data
     );
