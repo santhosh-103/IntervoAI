@@ -21,19 +21,25 @@ const codeRoutes =
 const app = express();
 
 /* Database */
+
 connectDB();
 
 /* Middleware */
 
 app.use(
   cors({
-    origin: "*",
+    origin: [
+      "https://intervo-ai-delta.vercel.app",
+      "http://localhost:5173",
+    ],
+
     methods: [
       "GET",
       "POST",
       "PUT",
       "DELETE",
     ],
+
     credentials: true,
   })
 );
