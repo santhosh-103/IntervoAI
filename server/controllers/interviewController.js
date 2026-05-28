@@ -1,12 +1,10 @@
-const {
-  generateQuestions,
-} = require("../services/geminiService");
-
 const createInterview = async (
   req,
   res
 ) => {
+
   try {
+
     const {
       role,
       difficulty,
@@ -18,34 +16,55 @@ const createInterview = async (
       !difficulty ||
       !questions
     ) {
-      return res.status(400).json({
-        success: false,
-        message:
-          "Role, difficulty and questions are required",
-      });
+
+      return res
+        .status(400)
+        .json({
+          success: false,
+          message:
+            "Role, difficulty and questions are required",
+        });
+
     }
 
-    const aiQuestions =
-      await generateQuestions(
-        role,
-        difficulty,
-        questions
-      );
+    const sampleQuestions = [
 
-    res.status(200).json({
-      success: true,
-      questions: aiQuestions,
-    });
+      `Tell me about yourself as a ${role}`,
+
+      `Explain one project related to ${role}`,
+
+      `What are your strengths?`,
+
+      `Why should we hire you?`,
+
+      `Explain your technical skills`,
+
+    ];
+
+    res
+      .status(200)
+      .json({
+        success: true,
+        questions:
+          sampleQuestions,
+      });
+
   } catch (error) {
-    console.error(error);
 
-    res.status(500).json({
-      success: false,
-      message:
-        error.message ||
-        "Failed to generate interview",
-    });
+    console.error(
+      error
+    );
+
+    res
+      .status(500)
+      .json({
+        success: false,
+        message:
+          "Failed to generate interview",
+      });
+
   }
+
 };
 
 module.exports = {
