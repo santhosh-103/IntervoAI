@@ -1,17 +1,28 @@
-import { useState, useEffect } from "react";
+import {
+  useState,
+  useEffect,
+} from "react";
+
 import {
   Link,
   useNavigate,
 } from "react-router-dom";
+
 import {
   FaEye,
   FaEyeSlash,
 } from "react-icons/fa";
+
 import toast from "react-hot-toast";
-import { registerUser } from "../api/authApi";
+
+import {
+  registerUser,
+} from "../api/authApi";
 
 function Register() {
-  const navigate = useNavigate();
+
+  const navigate =
+    useNavigate();
 
   const [name, setName] =
     useState("");
@@ -19,119 +30,181 @@ function Register() {
   const [email, setEmail] =
     useState("");
 
-  const [password, setPassword] =
-    useState("");
+  const [
+    password,
+    setPassword,
+  ] = useState("");
 
   const [
     confirmPassword,
     setConfirmPassword,
   ] = useState("");
 
-  const [showPassword, setShowPassword] =
-    useState(false);
+  const [
+    showPassword,
+    setShowPassword,
+  ] = useState(false);
 
   const [loading, setLoading] =
     useState(false);
 
   useEffect(() => {
+
     const token =
-      localStorage.getItem("token");
+      localStorage.getItem(
+        "token"
+      );
 
     if (token) {
-      navigate("/dashboard");
+
+      navigate(
+        "/dashboard"
+      );
+
     }
+
   }, [navigate]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit =
+    async (e) => {
 
-    if (
-      !name ||
-      !email ||
-      !password ||
-      !confirmPassword
-    ) {
-      toast.error(
-        "Please fill all fields"
-      );
-      return;
-    }
+      e.preventDefault();
 
-    const emailRegex =
-      /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (
+        !name ||
+        !email ||
+        !password ||
+        !confirmPassword
+      ) {
 
-    if (!emailRegex.test(email)) {
-      toast.error(
-        "Enter a valid email"
-      );
-      return;
-    }
+        toast.error(
+          "Please fill all fields"
+        );
 
-    if (password.length < 6) {
-      toast.error(
-        "Password must be at least 6 characters"
-      );
-      return;
-    }
+        return;
 
-    if (
-      password !==
-      confirmPassword
-    ) {
-      toast.error(
-        "Passwords do not match"
-      );
-      return;
-    }
+      }
 
-    try {
-      setLoading(true);
+      const emailRegex =
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-      await registerUser({
-        name,
-        email,
-        password,
-      });
+      if (
+        !emailRegex.test(
+          email
+        )
+      ) {
 
-      toast.success(
-        "Account Created Successfully 🎉"
-      );
+        toast.error(
+          "Enter a valid email"
+        );
 
-      navigate("/login");
-    } catch (err) {
-      toast.error(
-        err.response?.data
-          ?.message ||
-          "Registration Failed"
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
+        return;
+
+      }
+
+      if (
+        password.length < 6
+      ) {
+
+        toast.error(
+          "Password must be at least 6 characters"
+        );
+
+        return;
+
+      }
+
+      if (
+        password !==
+        confirmPassword
+      ) {
+
+        toast.error(
+          "Passwords do not match"
+        );
+
+        return;
+
+      }
+
+      try {
+
+        setLoading(true);
+
+        const res =
+          await registerUser({
+            name,
+            email,
+            password,
+          });
+
+        console.log(
+          "REGISTER RESPONSE:",
+          res.data
+        );
+
+        toast.success(
+          "Account Created Successfully 🎉"
+        );
+
+        navigate(
+          "/login"
+        );
+
+      } catch (err) {
+
+        console.error(
+          "REGISTER ERROR:",
+          err
+        );
+
+        toast.error(
+          err.response?.data
+            ?.message ||
+            "Registration Failed"
+        );
+
+      } finally {
+
+        setLoading(false);
+
+      }
+
+    };
 
   return (
+
     <div className="min-h-screen flex items-center justify-center px-6">
 
       <div className="w-full max-w-md backdrop-blur-xl bg-slate-900/80 border border-slate-800 rounded-3xl p-8 shadow-2xl">
 
         <h1 className="text-4xl font-bold text-white text-center">
+
           Create Account 🚀
+
         </h1>
 
         <p className="text-slate-400 text-center mt-3">
+
           Start practicing interviews with AI
+
         </p>
 
         <form
-          onSubmit={handleSubmit}
+          onSubmit={
+            handleSubmit
+          }
           className="mt-8 space-y-5"
         >
 
           {/* Name */}
+
           <div>
 
             <label className="text-slate-300 text-sm">
+
               Full Name
+
             </label>
 
             <input
@@ -149,10 +222,13 @@ function Register() {
           </div>
 
           {/* Email */}
+
           <div>
 
             <label className="text-slate-300 text-sm">
+
               Email Address
+
             </label>
 
             <input
@@ -170,10 +246,13 @@ function Register() {
           </div>
 
           {/* Password */}
+
           <div>
 
             <label className="text-slate-300 text-sm">
+
               Password
+
             </label>
 
             <div className="relative">
@@ -203,11 +282,13 @@ function Register() {
                 }
                 className="absolute right-4 top-6 text-slate-400"
               >
+
                 {showPassword ? (
                   <FaEyeSlash />
                 ) : (
                   <FaEye />
                 )}
+
               </button>
 
             </div>
@@ -215,10 +296,13 @@ function Register() {
           </div>
 
           {/* Confirm Password */}
+
           <div>
 
             <label className="text-slate-300 text-sm">
+
               Confirm Password
+
             </label>
 
             <input
@@ -240,17 +324,21 @@ function Register() {
           </div>
 
           {/* Submit */}
+
           <button
             type="submit"
             disabled={loading}
             className="w-full bg-indigo-600 hover:bg-indigo-700 py-3 rounded-xl text-white font-semibold transition shadow-lg shadow-indigo-500/30 disabled:opacity-50"
           >
+
             {loading
               ? "Creating Account..."
               : "Create Account"}
+
           </button>
 
           {/* Login Link */}
+
           <p className="text-center text-slate-400">
 
             Already have an account?{" "}
@@ -259,7 +347,9 @@ function Register() {
               to="/login"
               className="text-indigo-400 hover:text-indigo-300"
             >
+
               Login
+
             </Link>
 
           </p>
@@ -269,7 +359,9 @@ function Register() {
       </div>
 
     </div>
+
   );
+
 }
 
 export default Register;
