@@ -50,6 +50,16 @@ app.use(
 
 /* Routes */
 
+app.post(
+  "/api/auth/login",
+  (req, res) => {
+    res.json({
+      success: true,
+      message: "LOGIN ROUTE WORKING"
+    });
+  }
+);
+
 app.use(
   "/api/auth",
   authRoutes
