@@ -1,30 +1,25 @@
 import axios from "axios";
 
-const API = axios.create({
-  baseURL:
-    import.meta.env.VITE_API_URL ||
-    "http://localhost:5000/api/auth",
+const API_URL =
+  import.meta.env
+    .VITE_API_URL;
 
-  headers: {
-    "Content-Type":
-      "application/json",
-  },
-});
+export const loginUser =
+  async (data) => {
 
-export const registerUser = (
-  userData
-) =>
-  API.post(
-    "/register",
-    userData
-  );
+    return axios.post(
+      `${API_URL}/api/auth/login`,
+      data
+    );
 
-export const loginUser = (
-  userData
-) =>
-  API.post(
-    "/login",
-    userData
-  );
+  };
 
-export default API;
+export const registerUser =
+  async (data) => {
+
+    return axios.post(
+      `${API_URL}/api/auth/register`,
+      data
+    );
+
+  };
