@@ -28,13 +28,7 @@ app.use(
 app.use(express.json());
 
 /* TEST LOGIN ROUTE */
-app.post("/api/auth/login", (req, res) => {
-  res.json({
-    success: true,
-    message: "LOGIN TEST OK",
-    body: req.body,
-  });
-});
+
 
 /* Routes */
 app.use("/api/auth", authRoutes);

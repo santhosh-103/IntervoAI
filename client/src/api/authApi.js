@@ -6,7 +6,7 @@ const API_URL =
 
 export const loginUser =
   async (data) => {
-
+  
     return await axios.post(
       `${API_URL}/api/auth/login`,
       data

@@ -50,10 +50,6 @@ function Login() {
         "token"
       );
 
-    console.log(
-      "Existing Token:",
-      token
-    );
 
     if (token) {
 
@@ -93,15 +89,7 @@ function Login() {
             password,
           });
 
-        console.log(
-          "FULL RESPONSE:",
-          res
-        );
-
-        console.log(
-          "RESPONSE DATA:",
-          res.data
-        );
+        
 
         const token =
           res?.data?.token;
