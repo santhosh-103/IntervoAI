@@ -18,9 +18,10 @@ import {
 } from "react-icons/fa";
 
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 function VideoInterview() {
-
+  const navigate = useNavigate();
   const videoRef =
     useRef(null);
 
@@ -900,10 +901,7 @@ function VideoInterview() {
         <div className="flex justify-end mt-8">
 
           <button
-            onClick={() =>
-              window.location.href =
-                "/result"
-            }
+            onClick={() => navigate("/result")}
             className="bg-indigo-600 hover:bg-indigo-700 px-8 py-4 rounded-xl text-white font-semibold flex items-center gap-3"
           >
 
