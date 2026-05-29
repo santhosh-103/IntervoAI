@@ -13,19 +13,17 @@ const app = express();
 /* Database */
 connectDB();
 
-/* Middleware */
 app.use(
   cors({
     origin: [
-      "https://intervo-ai-delta.vercel.app",
       "http://localhost:5173",
+      "https://intervo-ai-tawny.vercel.app"
     ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
-
 app.use(express.json());
+
 
 /* TEST LOGIN ROUTE */
 
