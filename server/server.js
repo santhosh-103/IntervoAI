@@ -20,30 +20,28 @@ app.use(
       "https://intervo-ai-delta.vercel.app",
       "http://localhost:5173",
     ],
-    methods: [
-      "GET",
-      "POST",
-      "PUT",
-      "DELETE",
-    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
 
 app.use(express.json());
 
+/* TEST LOGIN ROUTE */
+app.post("/api/auth/login", (req, res) => {
+  res.json({
+    success: true,
+    message: "LOGIN TEST OK",
+    body: req.body,
+  });
+});
+
 /* Routes */
 app.use("/api/auth", authRoutes);
 
-app.use(
-  "/api/interview",
-  interviewRoutes
-);
+app.use("/api/interview", interviewRoutes);
 
-app.use(
-  "/api/code",
-  codeRoutes
-);
+app.use("/api/code", codeRoutes);
 
 /* Health Check */
 app.get("/", (req, res) => {
@@ -71,11 +69,8 @@ app.use((err, req, res, next) => {
   });
 });
 
-const PORT =
-  process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(
-    `🚀 Server running on port ${PORT}`
-  );
+  console.log(`🚀 Server running on port ${PORT}`);
 });
